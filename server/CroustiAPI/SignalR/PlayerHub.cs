@@ -9,7 +9,7 @@ public class PlayerHub : Hub
 {
     public static string HubUrl = "/player-hub";
 
-    public async Task HighlightCard(GameStateService gameStateService, string cardId, bool on)
+    public void HighlightCard(GameStateService gameStateService, string cardId, bool on)
     {
         var playerColor = Context.User.Identity.Name;
 
