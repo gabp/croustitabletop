@@ -38,7 +38,7 @@ function getPlayersCardsAsJson()
     return JSON.encode_pretty({ players = players })
 end
 
-local serverUrl = "http://localhost:5125"
+local serverUrl = "http://localhost"
 local headers = {
     ["Content-Type"] = "application/json",
     Accept = "application/json",

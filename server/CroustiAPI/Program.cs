@@ -16,6 +16,10 @@ builder.Services.AddSingleton<GameStateService>();
 builder.Services.AddScoped<QrCodeService>();
 builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 builder.Services.AddSingleton<TokenProviderService>();
+builder.Services.AddSingleton<DuckDnsService>();
+builder.Services.AddSingleton<LetsEncryptService>();
+
+builder.Services.AddHostedService<HostedService>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -72,5 +76,14 @@ app.UseAuthorization();
 
 app.MapHub<PlayerHub>(PlayerHub.HubUrl);
 app.MapControllers();
+
+var duckDnsService = app.Services.GetService<DuckDnsService>();
+var letsEncryptService = app.Services.GetService<LetsEncryptService>();
+
+if(!File.Exists(letsEncryptService.GetCertLocation()))
+{
+    await duckDnsService.UpdateDns();
+    await letsEncryptService.GenerateCert();
+}
 
 app.Run();

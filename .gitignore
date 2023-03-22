@@ -64,3 +64,8 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+server/CroustiAPI/certs/development/acme-account-key.pem
+server/CroustiAPI/certs/development/crousti-cert.pfx
+server/CroustiAPI/certs/production/acme-account-key.pem
+server/CroustiAPI/certs/production/crousti-cert.pfx

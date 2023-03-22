@@ -1,12 +1,11 @@
 ﻿{
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "http": {
+    "dev": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      "launchUrl": "ttsplugin",
-      "applicationUrl": "http://localhost:5125",
+      "applicationUrl": "http://localhost",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
