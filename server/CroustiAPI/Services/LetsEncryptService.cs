@@ -3,25 +3,16 @@ using Certes.Acme;
 
 public class LetsEncryptService
 {
-    private string acmeAccountFileLocation = "certs/production/acme-account-key.pem";
-    private string certFileLocation = "certs/production/crousti-cert.pfx";
-    private string issuersCertFileLocation = "certs/production/isrg-root-x2.der";
+    private string acmeAccountFileLocation = "certs/acme-account-key.pem";
+    private string certFileLocation = "certs/crousti-cert.pfx";
+    private string issuersCertFileLocation = "certs/isrg-root-x2.der";
     private string acmeAccountEmail;
-    private Uri letsEncryptServer = WellKnownServers.LetsEncryptV2;
 
 
     private DuckDnsService duckDnsService;
 
-    public LetsEncryptService(IConfiguration configs, IWebHostEnvironment env, DuckDnsService duckDnsService)
+    public LetsEncryptService(IConfiguration configs, DuckDnsService duckDnsService)
     {
-        if (env.EnvironmentName == "Development")
-        {
-            this.acmeAccountFileLocation = "certs/development/acme-account-key.pem";
-            this.certFileLocation = "certs/development/crousti-cert.pfx";
-            this.issuersCertFileLocation = "certs/development/letsencrypt-stg-root-x2.der";
-            this.letsEncryptServer = WellKnownServers.LetsEncryptStagingV2;
-        }
-
         this.acmeAccountEmail = configs.GetValue<string>("CroustiTabletop:LetsEncrypt:AccountEmail");
 
         this.duckDnsService = duckDnsService;
@@ -43,11 +34,11 @@ public class LetsEncryptService
             var accountPemKey = await File.ReadAllTextAsync(this.acmeAccountFileLocation);
             var accountKey = KeyFactory.FromPem(accountPemKey);
 
-            return new AcmeContext(WellKnownServers.LetsEncryptStagingV2, accountKey);
+            return new AcmeContext(WellKnownServers.LetsEncryptV2, accountKey);
         }
         else
         {
-            var acmeContext = new AcmeContext(WellKnownServers.LetsEncryptStagingV2);
+            var acmeContext = new AcmeContext(WellKnownServers.LetsEncryptV2);
             var account = await acmeContext.NewAccount(this.acmeAccountEmail, true);
 
             // save key for next time

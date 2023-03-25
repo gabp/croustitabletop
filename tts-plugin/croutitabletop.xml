@@ -1,0 +1,56 @@
+<Button icon="croustiquiche" width="52" height="52" rectAlignment="UpperLeft" offsetXY="10 -530" onClick="createQrCodes"></Button>
+
+
+<!-- MTG Loader -->
+<Defaults>
+    <Button colors="rgb(0.25,0.25,0.25)|rgb(0.35,0.35,0.35)|rgb(0.5,0.5,0.5)|rgb(0.25,0.25,0.25)" textColor="white" />
+    <Panel class="window" color="rgba(0,0,0,0.75)"
+           showAnimation="FadeIn" hideAnimation="FadeOut" animationDuration="0.5"
+           allowDragging="true" returnToOriginalPositionWhenReleased="false"/>
+    <InputField color="rgba(0.25,0.25,0.25,0.5)" textColor="white"/>
+    <Text color="White"/>
+</Defaults>
+
+<!-- Deck loading -->
+<Button width="100" height="40" rectAlignment="UpperLeft" offsetXY="100 -10" onClick="onOpenLoadDialog">Load Deck</Button>
+
+<!-- Panel to load cards. Copy one per player color with name load_Color -->
+<Panel id="load_White" class="window" visibility="White" active="false"
+       width="900" height="740">
+    <InputField id="input_White1" lineType="MultiLineNewLine" placeholder="Paste Deck Info..." onEndEdit="onEndEditDeck"
+                width="850" height="625" rectAlignment="UpperCenter" offsetXY="0 -25">
+    </InputField>
+
+    <Button width="100" height="40" rectAlignment="LowerRight" offsetXY="-150 25" onClick="onCancelLoad">Cancel</Button>
+    <Button width="100" height="40" rectAlignment="LowerRight" offsetXY="-25 25" onClick="onLoadDeck">Load</Button>
+</Panel>
+
+<Panel id="load_Red" class="window" visibility="Red" active="false"
+       width="900" height="740">
+    <InputField id="input_Red1" lineType="MultiLineNewLine" placeholder="Paste Deck Info..." onEndEdit="onEndEditDeck"
+                width="850" height="625" rectAlignment="UpperCenter" offsetXY="0 -25">
+    </InputField>
+
+    <Button width="100" height="40" rectAlignment="LowerRight" offsetXY="-150 25" onClick="onCancelLoad">Cancel</Button>
+    <Button width="100" height="40" rectAlignment="LowerRight" offsetXY="-25 25" onClick="onLoadDeck">Load</Button>
+</Panel>
+
+<Panel id="load_Blue" class="window" visibility="Blue" active="false"
+       width="900" height="740">
+    <InputField id="input_Blue1" lineType="MultiLineNewLine" placeholder="Paste Deck Info..." onEndEdit="onEndEditDeck"
+                width="850" height="625" rectAlignment="UpperCenter" offsetXY="0 -25">
+    </InputField>
+
+    <Button width="100" height="40" rectAlignment="LowerRight" offsetXY="-150 25" onClick="onCancelLoad">Cancel</Button>
+    <Button width="100" height="40" rectAlignment="LowerRight" offsetXY="-25 25" onClick="onLoadDeck">Load</Button>
+</Panel>
+
+<Panel id="load_Green" class="window" visibility="Green" active="false"
+       width="900" height="740">
+    <InputField id="input_Green1" lineType="MultiLineNewLine" placeholder="Paste Deck Info..." onEndEdit="onEndEditDeck"
+                width="850" height="625" rectAlignment="UpperCenter" offsetXY="0 -25">
+    </InputField>
+
+    <Button width="100" height="40" rectAlignment="LowerRight" offsetXY="-150 25" onClick="onCancelLoad">Cancel</Button>
+    <Button width="100" height="40" rectAlignment="LowerRight" offsetXY="-25 25" onClick="onLoadDeck">Load</Button>
+</Panel>

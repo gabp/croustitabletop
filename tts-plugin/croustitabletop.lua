@@ -1,6 +1,12 @@
 --require("vscode/console")
 --require("croustitabletop")
 
+local serverUrl = "http://localhost"
+local headers = {
+    ["Content-Type"] = "application/json",
+    Accept = "application/json",
+}
+
 function getPlayersCustomCards(player)
 
     if player.getHandCount() == 0 then
@@ -37,13 +43,6 @@ function getPlayersCardsAsJson()
 
     return JSON.encode_pretty({ players = players })
 end
-
-local serverUrl = "http://localhost"
-local headers = {
-    ["Content-Type"] = "application/json",
-    Accept = "application/json",
-}
-
 
 function standardizeColor(color)
     return color:sub(1,1):upper()..color:sub(2):lower()
@@ -138,4 +137,3 @@ function highlightCards()
 
     Wait.time(highlightCards, 0.1)
 end
-
