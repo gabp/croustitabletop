@@ -1,6 +1,6 @@
 namespace CroustiAPI;
 
-public record Card
+public record WebAppCardEntity
 {
     public string Guid { get; set; }
 

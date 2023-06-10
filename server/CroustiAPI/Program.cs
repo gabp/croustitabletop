@@ -55,7 +55,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(s => {
+    s.EnableDetailedErrors = true;
+    s.MaximumReceiveMessageSize = long.MaxValue;
+});
 
 var app = builder.Build();
 
@@ -75,6 +78,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapHub<PlayerHub>(PlayerHub.HubUrl);
+app.MapHub<TableHub>(TableHub.HubUrl);
 app.MapControllers();
 
 var duckDnsService = app.Services.GetService<DuckDnsService>();

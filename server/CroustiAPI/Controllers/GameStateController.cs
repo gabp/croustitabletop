@@ -16,25 +16,25 @@ public class GameStateController : ControllerBase
         this.gameStateService = gameStateService;
     }
 
-    [HttpGet]
+    /*[HttpGet]
     public GameState GetGameState()
     {
         return this.gameStateService.GetGameState();
-    }
+    }*/
 
-    [HttpPut]
+    /*[HttpPut]
     public GameState UpdateGameState(GameState gameState)
     {        
         this.gameStateService.UpdateGameState(gameState);
 
         return this.gameStateService.GetGameState();
-    }
+    }*/
 
-    [HttpGet("cardsToHighlight")]
+    /*[HttpGet("cardsToHighlight")]
     public HashSet<CardHighlight> GetCardsToHighlightOnOrOff()
     {
         var cardsToHighlightOnOrOff = this.gameStateService.GetCardsToHighlightOnOrOff();
 
         return cardsToHighlightOnOrOff;
-    }
+    }*/
 }

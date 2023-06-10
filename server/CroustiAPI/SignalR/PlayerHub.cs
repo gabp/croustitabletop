@@ -8,15 +8,16 @@ namespace CroustiAPI;
 public class PlayerHub : Hub
 {
     public static string HubUrl = "/player-hub";
+    public static string PlayerHandUpdatedEvent = "PlayerHandUpdatedEvent";
 
-    public void HighlightCard(GameStateService gameStateService, string cardId, bool on)
+    public void HighlightCard(GameStateService gameStateService, string cardId, bool isHighlighted)
     {
         var playerColor = Context.User.Identity.Name;
 
-        gameStateService.ToggleCardHighlight(new CardHighlight {
-            Color = playerColor,
-            Guid = cardId,
-            On = on,
+        gameStateService.ToggleCardHighlight(new UnityCardHighlightEntity {
+            PlayerColor = playerColor,
+            CardId = cardId,
+            IsHighlighted = isHighlighted,
         });
     }
 }

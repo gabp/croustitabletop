@@ -49,7 +49,8 @@ export default defineComponent({
       .withAutomaticReconnect()
       .build();
 
-    this.playerHubConnection.on("PlayerHandUpdated", data => {
+    this.playerHubConnection.on("PlayerHandUpdatedEvent", data => {
+      console.log(data)
       this.cards = data
     });
 

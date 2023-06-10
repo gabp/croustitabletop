@@ -1,6 +1,6 @@
 namespace CroustiAPI;
 
-public record Player
+public record PlayerEntity
 {
     public string Color { get; set; }
 

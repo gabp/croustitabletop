@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 
@@ -5,39 +6,50 @@ namespace CroustiAPI;
 
 public class GameStateService
 {
-    private IHubContext<PlayerHub> hubContext;
+    private IHubContext<PlayerHub> playerHub;
+    private IHubContext<TableHub> tableHub;
     private GameState gameState = new ();
-    private HashSet<CardHighlight> cardsToHighlightOnOrOff = new();
+    //private HashSet<CardHighlight> cardsToHighlightOnOrOff = new();
 
-    public GameStateService(IHubContext<PlayerHub> hubContext)
+    private Players players = new ();
+
+    public GameStateService(IHubContext<PlayerHub> playerHub, IHubContext<TableHub> tableHub)
     {
-        this.hubContext = hubContext;
+        this.playerHub = playerHub;
+        this.tableHub = tableHub;
     }
 
-    public GameState GetGameState()
+    public bool TryGetPlayer(string playerColor, out Player existingPlayer)
     {
-        return this.gameState;
+        return this.players.TryGetPlayer(playerColor, out existingPlayer);
     }
 
-    public void UpdateGameState(GameState newGameState)
+    public void UpdatePlayer(string playerColor, List<Card> cards)
     {
-        this.gameState = newGameState;
+        var player = new Player
+        {
+            Color = playerColor,
+        };
 
-        this.gameState.Players.ForEach(player => {
-            this.hubContext.Clients.User(player.Color.ToLower()).SendAsync("PlayerHandUpdated", player.Cards);
-        });
+        player.AddCards(cards);
+
+        this.players.PutPlayer(player);
+
+        this.playerHub.Clients.User(playerColor.ToLower()).SendAsync(PlayerHub.PlayerHandUpdatedEvent, player.Cards.ToWebAppCardEntities());
     }
 
-    public void ToggleCardHighlight(CardHighlight card)
+    public void ToggleCardHighlight(UnityCardHighlightEntity card)
     {
-        this.cardsToHighlightOnOrOff.Add(card);
+        //this.cardsToHighlightOnOrOff.Add(card);
+
+        this.tableHub.Clients.All.SendAsync(TableHub.HighlighCardToggledEvent, card);
     }
 
-    public HashSet<CardHighlight> GetCardsToHighlightOnOrOff()
+    /*public HashSet<CardHighlight> GetCardsToHighlightOnOrOff()
     {
         var toReturn = new HashSet<CardHighlight>(cardsToHighlightOnOrOff);
         this.cardsToHighlightOnOrOff.Clear();
 
         return toReturn;
-    }
+    }*/
 }

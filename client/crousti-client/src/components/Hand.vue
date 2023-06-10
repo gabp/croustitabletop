@@ -1,7 +1,7 @@
 <template>
   <Carousel class="carousel_width" :wrapAround="false" :mouseDrag="true" :touchDrag="true" :breakpoints="breakpoints" v-model="currentSlide" ref="carousel">
     <Slide v-for="(card, i) in cards" :key="card['guid']" @pointerup="slideTo(i, card['guid'])">
-      <div :style="`background-image: url(${card['imageURL']}); background-repeat: no-repeat; background-size: 173px 200px;`" class="carousel__item" :class="{ 'selected_carousel_item': isActive(i) }"></div>
+      <div :style="`background-image: url('${card['imageURL']}'); background-repeat: no-repeat; background-size: 173px 200px;`" class="carousel__item" :class="{ 'selected_carousel_item': isActive(i) }"></div>
     </Slide>
   </Carousel>
 </template>

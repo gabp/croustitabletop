@@ -31,7 +31,7 @@ public class QrCodeService
         QRCodeData qrCodeData = qrGenerator.CreateQrCode(playersUrl, QRCodeGenerator.ECCLevel.Q);
 
         QRCode qrCode = new QRCode(qrCodeData);
-        Bitmap qrCodeImage = qrCode.GetGraphic(20, Color.Black, Color.White, (Bitmap)Bitmap.FromFile("./resources/croustiquiche.png"), iconSizePercent: 35);
+        Bitmap qrCodeImage = qrCode.GetGraphic(20, Color.Black, Color.White, (Bitmap)Bitmap.FromFile("./resources/croustiquiche.png"), iconSizePercent: 25);
 
         using (var stream = new MemoryStream())
         {

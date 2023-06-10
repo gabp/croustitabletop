@@ -17,15 +17,17 @@ public class PlayersController : ControllerBase
     }
 
     [HttpGet("{playerColor}")]
-    public ActionResult<List<Card>> GetPlayer(string playerColor)
+    public ActionResult<Player> GetPlayer(string playerColor)
     {
-        var gameState = this.gameStateService.GetGameState();
-        var targetPlayer = gameState.Players.FirstOrDefault(p => p.Color.ToLower() == playerColor.ToLower());
+        if (this.gameStateService.TryGetPlayer(playerColor, out var player))
+        {
+            return player;
+        }
 
-        return targetPlayer?.Cards ?? new ();
+        return NotFound();
     }
 
-    [HttpPost("{playerColor}/{cardId}/highlight/{on}")]
+    /*[HttpPost("{playerColor}/{cardId}/highlight/{on}")]
     public void ToggleHighlightCard(string playerColor, string cardId, bool on)
     {
         this.gameStateService.ToggleCardHighlight(new CardHighlight
@@ -34,5 +36,5 @@ public class PlayersController : ControllerBase
             Color = playerColor,
             On = on,
         });
-    }
+    }*/
 }
