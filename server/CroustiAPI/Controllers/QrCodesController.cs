@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CroustiAPI.Controllers;
 
 [ApiController]
-[LocalhostOnly]
+//[LocalhostOnly]
 [Route("[controller]")]
 public class QrCodesController : ControllerBase
 {
@@ -22,5 +22,13 @@ public class QrCodesController : ControllerBase
         var qrCode = this.qrCodeService.GetQrCode(playerColor);
 
         return File(qrCode, "image/png");
+    }
+
+    [HttpGet("/text/{playerColor}")]
+    public string GenerateQrCodeUrl(string playerColor)
+    {
+        var url = this.qrCodeService.GetQrCodeUrl(playerColor);
+
+        return url;
     }
 }

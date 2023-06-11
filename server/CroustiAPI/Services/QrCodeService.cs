@@ -22,11 +22,18 @@ public class QrCodeService
         this.tokenProviderService = tokenProviderService;
     }
 
-    public byte[] GetQrCode(string playerColor)
+    public string GetQrCodeUrl(string playerColor)
     {
         var token = this.tokenProviderService.Generate(playerColor);
         var playersUrl = $"{this.clientUrl}/?serverUrl={this.serverUrl}&playerColor={playerColor}&access_token={token}";
 
+        return playersUrl;
+    }
+
+    public byte[] GetQrCode(string playerColor)
+    {
+        var playersUrl = this.GetQrCodeUrl(playerColor);
+        
         QRCodeGenerator qrGenerator = new QRCodeGenerator();
         QRCodeData qrCodeData = qrGenerator.CreateQrCode(playersUrl, QRCodeGenerator.ECCLevel.Q);
 
